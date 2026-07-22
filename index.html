@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOOD PLACE — Exhibition Teaser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* 1. 디자인 시스템 정의 (Colorful & Minimal) */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Nanum Gothic', sans-serif;
+            color: #2d2926;
+            overflow-x: hidden;
+            line-height: 1.8;
+            
+            background-color: #fdf9f2;
+            
+            background-image: linear-gradient(
+                                to right, 
+                                rgba(255, 255, 255, 0) 0%, 
+                                rgba(255, 255, 255, 0) 15%, 
+                                rgba(255, 255, 255, 0.95) 15%, 
+                                rgba(255, 255, 255, 0.95) 85%, 
+                                rgba(255, 255, 255, 0) 85%, 
+                                rgba(255, 255, 255, 0) 100%
+                              ), 
+                              url('포스터.jpg');
+            
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3, blockquote {
+            font-family: 'Nanum Myeongjo', serif;
+            font-weight: 700;
+        }
+
+        /* 스크롤 애니메이션 클래스 */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- SECTION 1: HERO & COUNTDOWN --- */
+        .hero-section {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #2d2926;
+            padding: 0 20px;
+        }
+
+        .hero-content p.date {
+            font-size: 1.4rem;
+            letter-spacing: 0.8rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            letter-spacing: 0.8rem;
+            border-top: 2px solid #2d2926;
+            border-bottom: 2px solid #2d2926;
+            padding: 20px 0;
+            margin-bottom: 50px;
+            display: inline-block;
+        }
+
+        /* 첫 페이지 중앙 카운트다운 타이머 */
+        .hero-countdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            margin-bottom: 45px;
+        }
+
+        .time-box {
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .time-box span {
+            font-size: 3.5rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .time-box p.label {
+            font-size: 0.8rem;
+            letter-spacing: 0.3rem;
+            margin-top: 10px;
+            opacity: 0.8;
+            font-weight: bold;
+        }
+
+        /* 작가 라인업 리스트 */
+        .artist-list {
+            font-size: 0.95rem;
+            letter-spacing: 0.25rem;
+            color: #333;
+            font-weight: 500;
+            margin-top: 15px;
+            word-break: keep-all;
+            padding: 10px 0;
+            opacity: 0.75; 
+        }
+
+        .artist-list span {
+            display: inline-block;
+            margin: 0 6px;
+        }
+
+        /* --- SECTION 2: FOOTER --- */
+        .footer-section {
+            padding: 120px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .footer-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-content p {
+            font-size: 1.1rem;
+            letter-spacing: 0.2rem;
+            opacity: 0.5;
+        }
+
+        .logo-box {
+            margin-top: 80px;
+            padding: 20px 50px;
+            border: 1px solid #2d2926;
+            display: inline-block;
+            font-size: 1.2rem;
+            letter-spacing: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <p class="date">2026. 08. 01</p>
+            <h1>GOOD PLACE</h1>
+            
+            <div class="hero-countdown" id="main-countdown">
+                <div class="time-box"><span id="days">00</span><p class="label">DAYS</p></div>
+                <div class="time-box"><span id="hours">00</span><p class="label">HOURS</p></div>
+                <div class="time-box"><span id="minutes">00</span><p class="label">MINS</p></div>
+                <div class="time-box"><span id="seconds">00</span><p class="label">SECS</p></div>
+            </div>
+
+            <div class="artist-list">
+                <span>강보민</span> · <span>김국희</span> · <span>남윤주</span> · <span>라유</span> · <span>백권도</span> · <span>이미지</span> · <span>이수형</span> · <span>하수현</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const faders = document.querySelectorAll('.fade-in-section');
+        const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => { appearOnScroll.observe(fader); });
+
+        const targetDate = new Date("August 1, 2026 00:00:00").getTime();
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                document.getElementById("main-countdown").innerHTML = "<p style='font-size:2rem; letter-spacing: 0.5rem;'>EXHIBITION OPENED</p>";
+                return;
+            }
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            daysEl.innerText = String(d).padStart(2, '0');
+            hoursEl.innerText = String(h).padStart(2, '0');
+            minutesEl.innerText = String(m).padStart(2, '0');
+            secondsEl.innerText = String(s).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
